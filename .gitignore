@@ -13,4 +13,4 @@ __pycache__/
 # Ignore the .pytest_cache directory if it exists
 .pytest_cache/
 
-SOLUTION.md
+SOLUTIONS.md
