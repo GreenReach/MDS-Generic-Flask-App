@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Fines</h2>
+<table class="table bg-white">
+  <thead><tr><th>#</th><th>User</th><th>Book</th><th>Amount</th><th>Paid</th></tr></thead>
+  <tbody>
+  {% for f in fines %}
+    <tr>
+      <td>{{ f.id }}</td>
+      <td>{{ f.loan.user.username }}</td>
+      <td>{{ f.loan.book.title }}</td>
+      <td>${{ '%.2f'|format(f.amount) }}</td>
+      <td>{{ "yes" if f.paid else "no" }}</td>
+    </tr>
+  {% else %}
+    <tr><td colspan="5" class="text-muted">No fines on record.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

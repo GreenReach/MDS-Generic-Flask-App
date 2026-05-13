@@ -1,0 +1,16 @@
+.venv
+# Ignore Python bytecode and cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore the .env file if it exists
+.env
+# Ignore the .vscode directory if it exists
+.vscode/
+# Ignore the .idea directory if it exists
+.idea/
+# Ignore the .pytest_cache directory if it exists
+.pytest_cache/
+
+SOLUTION.md

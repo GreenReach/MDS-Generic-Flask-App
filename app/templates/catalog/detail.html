@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<a class="text-muted small" href="{{ url_for('catalog.list_books') }}">&larr; back to catalog</a>
+<h2>{{ book.title }}</h2>
+<p class="lead">by {{ book.author }}{% if book.year %} ({{ book.year }}){% endif %}</p>
+<p>
+  ISBN: {{ book.isbn or '-' }}<br>
+  Status: <strong>{{ book.status }}</strong><br>
+  Availability: {{ book.available_copies }} of {{ book.total_copies }}
+</p>
+
+{% if current_user.is_authenticated %}
+  {% if book.is_available %}
+    <form method="post" action="{{ url_for('catalog.borrow', book_id=book.id) }}">
+      <button class="btn btn-success">Borrow</button>
+    </form>
+  {% else %}
+    <form method="post" action="{{ url_for('catalog.reserve', book_id=book.id) }}">
+      <button class="btn btn-outline-secondary">Reserve</button>
+    </form>
+  {% endif %}
+{% else %}
+  <p><a href="{{ url_for('auth.login') }}">Log in</a> to borrow this book.</p>
+{% endif %}
+
+{% if current_user.is_authenticated and current_user.is_admin %}
+  <hr>
+  <a class="btn btn-sm btn-outline-primary" href="{{ url_for('admin.edit_book', book_id=book.id) }}">Edit book</a>
+{% endif %}
+{% endblock %}

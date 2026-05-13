@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My active loans</h2>
+{% if loans %}
+<table class="table bg-white">
+  <thead><tr><th>Book</th><th>Borrowed</th><th>Due</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  {% for loan in loans %}
+    <tr>
+      <td>{{ loan.book.title }}</td>
+      <td>{{ loan.borrowed_at.strftime('%Y-%m-%d') }}</td>
+      <td>{{ loan.due_at.strftime('%Y-%m-%d') }}</td>
+      <td>
+        {% if loan.is_overdue() %}
+          <span class="badge bg-danger">overdue</span>
+        {% else %}
+          <span class="badge bg-success">on time</span>
+        {% endif %}
+      </td>
+      <td>
+        <form method="post" action="{{ url_for('loans.return_loan', loan_id=loan.id) }}">
+          <button class="btn btn-sm btn-primary">Return</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="text-muted">You have no active loans.</p>
+{% endif %}
+{% endblock %}

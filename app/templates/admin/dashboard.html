@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin dashboard</h2>
+<div class="row">
+  {% for label, value in counts.items() %}
+    <div class="col-md-3 mb-3">
+      <div class="card text-center"><div class="card-body">
+        <div class="text-muted small">{{ label.replace('_', ' ').title() }}</div>
+        <div class="display-6">{{ value }}</div>
+      </div></div>
+    </div>
+  {% endfor %}
+</div>
+<a class="btn btn-success" href="{{ url_for('admin.new_book') }}">Add book</a>
+<a class="btn btn-outline-secondary" href="{{ url_for('admin.fines') }}">View fines</a>
+{% endblock %}
